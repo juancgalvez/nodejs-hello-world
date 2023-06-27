@@ -3,6 +3,11 @@ pipeline {
     environment {
         SERVER_CREDENTIALS = credentials('sample-global-credentials') // "Credentials" and "Credentials binding" plugins must be installed to use credentials()
     }
+    parameters {
+        string(name: 'PRODUCT_NAME', defaultValue: 'Test Product', description: 'This is te product name')
+        choice(name: 'VERSION', choices: ['2.5.1', '2.6.1', 2.7.1'], description: 'Define what versionj of the product must be built')
+        booleanParam(name: 'executeAnotherStage', defaultValue: true, description: 'Boolean value indicating if another Stage gets executed')
+    }
     triggers {
         pollSCM('H/1 * * * *')
     }
@@ -14,10 +19,15 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                sh "echo 'Deploying with credentials: ${SERVER_CREDENTIALS}'"
+                echo "Deploying version ${VERSION} with credentials: ${SERVER_CREDENTIALS}"
             }
         }
         stage("another") {
+            when {
+                expression {
+                    params.executeAnotherStage
+                }
+            }
             steps {
                 // another way to ket credentials locally inside an stage when other stages dont need them
                 withCredentials([
