@@ -19,7 +19,7 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                echo "Deploying version ${VERSION} with credentials: ${SERVER_CREDENTIALS}"
+                echo "Deploying version ${params.VERSION} with credentials: ${SERVER_CREDENTIALS}"
             }
         }
         stage("another") {
