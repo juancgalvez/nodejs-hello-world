@@ -14,16 +14,16 @@ pipeline {
         }
         stage("deploy") {
             steps {
-                echo "Deploying with credentials: ${SERVER_CREDENTIALS}"
+                sh "echo 'Deploying with credentials: ${SERVER_CREDENTIALS}'"
             }
         }
         stage("another") {
             steps {
                 // another way to ket credentials locally inside an stage when other stages dont need them
                 withCredentials([
-                    usernamePassword(credentials: 'sample-global-credentials', usernameVariable: USERNAME, passwordVariable: PASSWORD)
+                    usernamePassword(credentials: 'sample-global-credentials', usernameVariable: USER, passwordVariable: PWD)
                 ]) {
-                    echo "username=${USERNAME}, password=${PASSWORD}"
+                    echo "username=${USER}, password=${PWD}"
                 }
             }
         }
