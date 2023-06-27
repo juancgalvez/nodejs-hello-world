@@ -12,19 +12,19 @@ pipeline {
                 sh "node helloworld.js"
             }
         }
+        stage("deploy") {
+            steps {
+                echo "Deploying with credentials: ${SERVER_CREDENTIALS}"
+            }
+        }
         stage("another") {
             steps {
                 // another way to ket credentials locally inside an stage when other stages dont need them
                 withCredentials([
-                    usernamePassword(credentials: 'sample-global-credentials', usernameVariable: 'USER', passwordVariable: 'PASSWORD')
+                    usernamePassword(credentials: 'sample-global-credentials', usernameVariable: USERNAME, passwordVariable: PASSWORD)
                 ]) {
-                    echo "username=${USER}, password=${PASSWORD}"
+                    echo "username=${USERNAME}, password=${PASSWORD}"
                 }
-            }
-        }
-        stage("deploy") {
-            steps {
-                echo "Deploying with credentials: ${SERVER_CREDENTIALS}"
             }
         }
     }
