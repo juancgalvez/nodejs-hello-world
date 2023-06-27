@@ -5,7 +5,7 @@ pipeline {
     }
     parameters {
         string(name: 'PRODUCT_NAME', defaultValue: 'Test Product', description: 'This is te product name')
-        choice(name: 'VERSION', choices: ['2.5.1', '2.6.1', 2.7.1'], description: 'Define what versionj of the product must be built')
+        choice(name: 'VERSION', choices: ['2.5.1', '2.6.1', '2.7.1'], description: 'Define what versionj of the product must be built')
         booleanParam(name: 'executeAnotherStage', defaultValue: true, description: 'Boolean value indicating if another Stage gets executed')
     }
     triggers {
