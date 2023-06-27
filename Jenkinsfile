@@ -21,7 +21,7 @@ pipeline {
             steps {
                 // another way to ket credentials locally inside an stage when other stages dont need them
                 withCredentials([
-                    usernamePassword(credentials: 'sample-global-credentials', usernameVariable: USER, passwordVariable: PWD)
+                    usernamePassword(credentialsId: 'sample-global-credentials', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]) {
                     echo "username=${USER}, password=${PWD}"
                 }
